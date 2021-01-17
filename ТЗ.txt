@@ -1,0 +1,167 @@
+
+Copy the files book_data1.csv, book_data2.csv and book_data3.csv to the same project, so that you can test your program.
+
+Description of the exercise
+The program represents a bookshelf and the books that are in it. In addition to this, there is a user interface program that enables the user to add or remove books from the bookshelf, look at the books more closely and print the whole bookshelf.
+
+There are three classes in the program: Author, Book and Bookshelf. The first represents an author, the second a book and the third a whole bookshelf, containing books. In addition, you will write a fourth module, which contains the user interface. Please note that the name of the modules should be written completely in lowercase. Respectively, the name of the classes should be written in CamelCase (ie. in the form MyClass. This is a widely used naming convention which is also required by A+ (or else the grading will not work).
+
+Structure of the file
+The book information is stored in a csv-file so that the info of one book is on one line. The information contains the books title, author's last name and first name(s), the language, genre and subgenre of the book. The information is separated by commas.
+
+Class Author
+Write into the module author the class Author. An Author-object has the following fields:
+
+__last_name
+The author's last name as a string
+__first_name
+The author's first name(s) as a single string
+Then implement the following methods into the class:
+
+__init__(self, last_name, first_name)
+The method creates a new Author object. The first and last name are given as parameters.
+get_last_name(self)
+Returns the author's last name.
+get_first_name(self)
+Returns the author's first name.
+Class Book
+Write into the module book the class Book. A Book-object has the following fields:
+
+__title
+The book's title, string
+__author
+The books's author, an Author-object, or to be precise, a reference to an Author-object.
+__genre
+The genre of the book, string
+__language
+Then implement the following methods into the class:
+
+__init__(self, title, author, genre, sub_genre, language)
+The method creates a new Book-object. The title, author, genre, subgenre and language are given as parameters. The genre and subgenre are saved into the field __genre as a single string in the form: "genre/sub_genre".
+get_title(self)
+Returns the title of the book.
+get_author(self)
+Returns the author of the book.
+get_genre(self)
+Returns the genre of the book.
+get_language(self)
+Returns the language of the book.
+get_spine(self)
+Returns the spine of the book as a string. The spine contains the author and title of the book between vertical lines |. The first name of the author is first and then the last name. The author's name is in a field 20 characters wide and the title in a field in a field 55 characters wide and are both aligned to the center. If either is too long to fit into the given field, it must be shortened to one less than the width of the field and a dot added to the end. Here are some examples of possible strings for the method to return. The end of the sring must not include a newline character.
+|  Agatha Christie   :               And then there were none                |
+|  Agatha Christie   :The mysterious affair at Styles : the first Hercule Po.|
+|Nassim Nicholas Tal.: The black swan : the impact of the highly improbable  |
+__str__(self)
+Returns a string that contains the book information in the form:
+Title:     And then there were none
+Author:    Christie, Agatha
+Language:  English
+Genre:     Fiction/Mystery
+The last line also contains a newline character.
+Class Bookshelf
+Write into the module bookshelf the class Bookshelf. A Book-object has the following fields:
+
+__owner
+The name of the owner of the bookshelf.
+__shelves
+A two-dimensional list that represents the slots of the bookshelf. The rows represent different shelves. Each value on the list can contain either the value None or a Book-object.
+Then implement the following methods into the class:
+
+__init__(self, owner, shelves_number, shelf_width)
+The method creates a new Bookshelf-object. The owner of the bookshelf, the number of shelves and the width of one shelf are given as parameters. One shelf therefore contains shelf_width number of slots. The bookshelf is initialized to the given size and it is filled with None-values.
+get_owner(self)
+Returns the name of the owner of the bookshelf.
+get_contents(self)
+Returns the contents of the bookshelf, so the two-dimensional list __shelves.
+get_shelf_n(self)
+Returns the number of the shelves in the bookshelf.
+get_shelf_w(self)
+Returns the width of one shelf in the bookshelf.
+is_full(self)
+Returns False if there is a single empty slot in the bookshelf. Otherwise returns True.
+add_book(self, book)
+If there is space in the bookshelf, the method adds the Book-object given as a parameter to the next available slot. If the adding worked, the method returns True, otherwise False.
+insert_book(self, book, i, j)
+If the given slot with index [i][j] in the bookshelf is empty, the method adds the Book-object given as a parameter into that slot. If the inserting worked, the method returns True, otherwise False.
+remove_book(self, i, j)
+If the given slot with index [i][j] in the bookshelf is empty, the method adds the Book-object given as a parameter into that slot. If the inserting worked, the method returns True, otherwise False. The method also returns False if the slot was already empty.
+shelf_str(self, i, numbered = False)
+Returns a string that represents the shelf with the index i. Here is an example of the string that the function returns. The method must use the class Book-method get_spine(self). Empty slots are shown with empty rows as below. Between any two books and on the first and last rows of the string are always 78 dash characters. The end of the final row also contains a newline character.
+Shelf no 3
+------------------------------------------------------------------------------
+|  Agatha Christie   :                 4.50 from Paddington                  |
+------------------------------------------------------------------------------
+|   Anna Pignataro   :                        Agatha                         |
+------------------------------------------------------------------------------
+|    Matt Parker     :          Humble Pi: A Comedy of Maths Errors          |
+------------------------------------------------------------------------------
+|  Agatha Christie   :               And then there were none                |
+------------------------------------------------------------------------------
+|                                                                            |
+------------------------------------------------------------------------------
+If the parameter numbered given to the method is True, the method also prints a number after each book as so:
+
+Shelf no 3
+------------------------------------------------------------------------------
+|  Agatha Christie   :                 4.50 from Paddington                  |1
+------------------------------------------------------------------------------
+|   Anna Pignataro   :                        Agatha                         |2
+------------------------------------------------------------------------------
+|    Matt Parker     :          Humble Pi: A Comedy of Maths Errors          |3
+------------------------------------------------------------------------------
+|  Agatha Christie   :               And then there were none                |4
+------------------------------------------------------------------------------
+|                                                                            |5
+------------------------------------------------------------------------------
+__str__(self)
+Returns a string that contains all the strings that represent the shelves of the bookshelf. The method must use the class method shelf_str without numbering.
+If you like, you can also implement other methods as support and for instance divide your task, but the methods described above must be implemented as represented and with same names.
+
+The module bookshelfprogram
+Write a program into the module bookshelfprogram. The program asks the user for the name of the file to be read. If opening of the file succeeds, the program asks for the name of the user and the size of their bookshelf. The program creates a new Bookshelf-object, reads the book data from the given file, makes a Book-object from each correct line and adds the books to the bookshelf in the order they were in the file. If all the books from the file didn't fit into the bookshelf, the program prints that the bookshelf is full and how many books fit. Afterwards the program prints a menu for the user where the user can choose from different actions:
+
+Menu
+0 - Exit
+1 - Add a book to the next available spot
+2 - Insert a book into a specific spot
+3 - Look at the info of a book
+4 - Remove a book
+5 - Print the bookshelf
+The program executes the action chosen by the user.
+The user can add books to the bookshelf in the next available spot or any specific slot. The program asks the user for the information of the book, makes a Book-object out of it and adds it to the bookshelf. The program prints, whether the adding was successful.
+
+The user can view the specific information of a specific book.
+
+The user can remove a book from the bookshelf from the spot they want.
+
+The user can print the contents of the bookshelf. Printing uses the __str__ method of the class Bookshelf.
+
+In menu sections 2, 3 and 4 the user is first asked the number of the shelf, after which the program prints that shelf numbered. Then the user picks a slot (the number of the book). See the example execution for the specifics.
+
+If the user picks a number other than 0, 1, 2, 3, 4 or 5, the program prints the menu again and continues normally. When the user wants to exit the program, the program prints "Program ends".
+
+See the example execution for the specific outputs of the program in different situations. The structure of the user interface is not specified. However, don't write the entire program into the main function but use other functions reasonably.
+
+Tips
+Revise strings from section 6 of the course material.
+
+Error handling
+The program asks the name of the file that contains the book data and opens it.
+
+If the file doesn't exist or the opening of it doesn't work for some other reason the program prints "ERROR in reading the file.". After that the program prints "Program ends." and terminates.
+
+If some line of the file doesn't contain exactly six parts separated by commas, the program prints the incorrect line and ignores it, but continues reading the next line normally.
+
+If the file didn't have any correct lines, the program prints "Added 0 books to the bookshelf from file" and the user can keep using the program with an empty bookshelf.
+
+If the user is asked for a specific shelf or slot in the bookshelf, the asking is continued of as long as the user inputs a number from the desired interval. (See the example executions.)
+
+If the user tries to add a book to a filled slot or remove a book from an empty slot the program notifies about this and returns to the menu.
+
+You can assume that the user only inputs the right type of values (for example integers when asked).
+
+Output formatting
+Pay close attention that the output of your program is approximately according to the example execution below (letter case, full stops, commas, exclamation points or question marks are not checked even though they might be highlighted in the test feedback.) Line breaks and spaces are only checked from the __str__-methods of the classes Book and Bookshelf.
+
+Submitting
+Test your class by running it many times (from the module bookshelfprogram). When your program seems to be working correctly, submit the files author.py, book.py, bookshelf.py and bookshelfprogram.py.
